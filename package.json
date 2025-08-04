@@ -1,0 +1,41 @@
+{
+  "name": "customnativegallery",
+  "widgetName": "CustomNativeGallery",
+  "version": "1.0.0",
+  "description": "Displays a horizontal scrollable container for rendering items such as cards, images, or other UI elements. This widget supports smooth horizontal scrolling and is ideal for content carousels or item lists.",
+  "copyright": "All Khaleeji copyrights are reserved",
+  "author": "Ghaith",
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "Apache-2.0",
+  "config": {
+    "projectPath": "../"
+  },
+  "packagePath": "khaleeji",
+  "scripts": {
+    "start": "pluggable-widgets-tools start:native",
+    "build": "pluggable-widgets-tools build:native",
+    "lint": "pluggable-widgets-tools lint",
+    "lint:fix": "pluggable-widgets-tools lint:fix",
+    "prerelease": "npm run lint",
+    "release": "pluggable-widgets-tools release:native"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^10.15.0",
+    "@types/big.js": "^6.0.2"
+  },
+  "dependencies": {
+
+  },
+  "resolutions": {
+    "react": "^18.2.0",
+    "@types/react": "^18.2.0",
+    "react-native": "0.72.7"
+  },
+  "overrides": {
+    "react": "^18.2.0",
+    "@types/react": "^18.2.0",
+    "react-native": "0.72.7"
+  }
+}
