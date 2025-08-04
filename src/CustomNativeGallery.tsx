@@ -74,19 +74,6 @@ export function CustomNativeGallery(props: CustomNativeGalleryProps<CustomStyle>
 
     return (
         <View style={style[0]?.container} testID={`${name}`}>
-            {/* <FlatList
-                data={datasource.items}
-                keyExtractor={item => item.id ?? JSON.stringify(item)}
-                renderItem={renderListItem}
-                horizontal={!isVertical}
-                onEndReached={pagination === "virtualScrolling" && datasource.hasMoreItems ? loadMoreItems : undefined}
-                ListFooterComponent={renderFooter()}
-                ListEmptyComponent={renderEmpty}
-                refreshing={false}
-                showsHorizontalScrollIndicator={!isVertical && scrollIndicator}
-                showsVerticalScrollIndicator={isVertical && scrollIndicator}
-                testID={`${name}-list`}
-            /> */}
             <GalleryList
                 data={datasource.items}
                 isVertical={isVertical}
