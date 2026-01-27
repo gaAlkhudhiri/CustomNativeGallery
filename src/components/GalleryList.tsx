@@ -1,5 +1,6 @@
 import { ReactElement, createElement } from "react";
 import { FlatList } from "react-native";
+import { CustomStyle } from "src/CustomNativeGallery";
 import { PaginationEnum } from "typings/CustomNativeGalleryProps";
 interface GalleryListProps {
     data: any[] | undefined;
@@ -8,6 +9,7 @@ interface GalleryListProps {
     hasMoreItems: boolean | undefined;
     renderItem: ({ item }: { item: any }) => ReactElement;
     footerComponent: ReactElement | null;
+    style: CustomStyle[];
     emptyComponent: ReactElement;
     scrollIndicator?: boolean;
     testID?: string;
@@ -22,6 +24,7 @@ export const GalleryList = ({
     renderItem,
     footerComponent,
     emptyComponent,
+    style,
     scrollIndicator,
     testID,
     loadMoreItems
@@ -35,6 +38,7 @@ export const GalleryList = ({
         onEndReachedThreshold={0.5}
         ListFooterComponent={footerComponent}
         ListEmptyComponent={emptyComponent}
+        contentContainerStyle={style[0]?.container}
         showsHorizontalScrollIndicator={!isVertical && scrollIndicator}
         showsVerticalScrollIndicator={isVertical && scrollIndicator}
         testID={testID}

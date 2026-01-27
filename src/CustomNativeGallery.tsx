@@ -1,4 +1,4 @@
-import { ReactElement, createElement, useCallback, useEffect, useState } from "react";
+import { ReactElement, createElement, useCallback, useEffect, useMemo, useState } from "react";
 import { Platform, Pressable, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 
 import { Style } from "@mendix/pluggable-widgets-tools";
@@ -11,14 +11,45 @@ export interface CustomStyle extends Style {
 }
 
 export function CustomNativeGallery(props: CustomNativeGalleryProps<CustomStyle>): ReactElement {
-   const { datasource, pageSize, name, content, onClick, emptyPlaceholder, pagination, loadMoreButtonCaption, scrollDirection, scrollIndicator, style } = props;
+   const { datasource, pageSize, name, content, onClick, emptyPlaceholder, pagination, loadMoreButtonCaption, scrollDirection, scrollIndicator, filterList, searchText, filtersPlaceholder, style } = props;
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        const value = searchText?.value ?? "";
+        setSearchQuery(value.trim().toLocaleLowerCase());
+    }, [searchText?.value]);
 
     useEffect(() => {
         if (datasource.limit === Infinity) {
             datasource.setLimit(pageSize);
         }
     }, [datasource, pageSize]);
+
+     const searchableAttributes = useMemo(
+        () => filterList.map(f => f.filter),
+        [filterList]
+    );
+
+    const filteredItems = useMemo(() => {
+        if(!datasource.items || !searchQuery || searchableAttributes.length === 0){
+            return datasource.items ?? [];
+        }
+
+        console.log("Searching for:", searchQuery);
+        console.log("Searchable attributes:", searchableAttributes);
+
+        return datasource.items.filter(item =>
+            searchableAttributes.some(attr => {
+                const value = attr?.get(item).value;
+                console.log(`Checking item attribute value:`, value);
+                return (
+                    typeof value === "string" &&
+                    (value as string).toLowerCase().includes(searchQuery)
+                );
+            })
+        );
+    }, [datasource.items, searchableAttributes, searchQuery]);
 
     const isVertical = scrollDirection === "vertical";
 
@@ -27,6 +58,12 @@ export function CustomNativeGallery(props: CustomNativeGalleryProps<CustomStyle>
         datasource.setLimit(nextLimit);
         setCurrentPage(currentPage + 1);
     }, [currentPage, datasource, pageSize]);
+
+    /* --------------------------------------------------------------- */
+    /* String oonly filtering
+    /* --------------------------------------------------------------- */
+
+   
 
     const handlePress = useCallback(() => {
         if (onClick && "execute" in onClick && typeof onClick.execute === "function") {
@@ -73,11 +110,13 @@ export function CustomNativeGallery(props: CustomNativeGalleryProps<CustomStyle>
     );
 
     return (
-        <View style={style[0]?.container} testID={`${name}`}>
+        <View testID={`${name}`}>
+            {filtersPlaceholder}
             <GalleryList
-                data={datasource.items}
+                data={filteredItems}
                 isVertical={isVertical}
                 pagination={pagination}
+                style={style}
                 hasMoreItems={datasource.hasMoreItems}
                 renderItem={renderListItem}
                 footerComponent={renderFooter()}

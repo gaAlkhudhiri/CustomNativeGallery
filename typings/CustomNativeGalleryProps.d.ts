@@ -4,15 +4,14 @@
  * @author Mendix Widgets Framework Team
  */
 import { ComponentType, CSSProperties, ReactNode } from "react";
-import { ActionValue, DynamicValue, ListValue, ListActionValue, ListAttributeValue, ListWidgetValue } from "mendix";
-import { Big } from "big.js";
+import { ActionValue, DynamicValue, EditableValue, ListValue, ListActionValue, ListAttributeValue, ListWidgetValue } from "mendix";
 
 export type ScrollDirectionEnum = "vertical" | "horizontal";
 
 export type PaginationEnum = "virtualScrolling" | "buttons";
 
 export interface FilterListType {
-    filter: ListAttributeValue<string | Big | boolean | Date>;
+    filter: ListAttributeValue<string>;
 }
 
 export interface FilterListPreviewType {
@@ -24,6 +23,7 @@ export interface CustomNativeGalleryProps<Style> {
     style: Style[];
     datasource: ListValue;
     content?: ListWidgetValue;
+    searchText?: EditableValue<string>;
     scrollDirection: ScrollDirectionEnum;
     scrollIndicator: boolean;
     tabletColumns: number;
@@ -51,6 +51,7 @@ export interface CustomNativeGalleryPreviewProps {
     translate: (text: string) => string;
     datasource: {} | { caption: string } | { type: string } | null;
     content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    searchText: string;
     scrollDirection: ScrollDirectionEnum;
     scrollIndicator: boolean;
     tabletColumns: number | null;

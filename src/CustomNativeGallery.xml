@@ -17,6 +17,13 @@
                     <caption>Content placeholder</caption>
                     <description />
                 </property>
+                <property key="searchText" type="attribute" required="false">
+                    <caption>Search text</caption>
+                    <description>Attribute to search items</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
+                </property>
                 <property key="scrollDirection" type="enumeration" defaultValue="vertical">
                     <caption>Scroll direction</caption>
                     <description />
@@ -89,13 +96,6 @@
                                 <description />
                                 <attributeTypes>
                                     <attributeType name="String" />
-                                    <attributeType name="AutoNumber" />
-                                    <attributeType name="Boolean" />
-                                    <attributeType name="DateTime" />
-                                    <attributeType name="Decimal" />
-                                    <attributeType name="Enum" />
-                                    <attributeType name="Integer" />
-                                    <attributeType name="Long" />
                                 </attributeTypes>
                             </property>
                         </propertyGroup>
