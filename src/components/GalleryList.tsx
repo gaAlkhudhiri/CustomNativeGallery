@@ -37,8 +37,9 @@ export const GalleryList = ({
         onEndReached={pagination === "virtualScrolling" && hasMoreItems ? loadMoreItems : undefined}
         onEndReachedThreshold={0.5}
         ListFooterComponent={footerComponent}
+        style={style[0]?.container}
         ListEmptyComponent={emptyComponent}
-        contentContainerStyle={style[0]?.container}
+        // contentContainerStyle={style[0]?.container}
         showsHorizontalScrollIndicator={!isVertical && scrollIndicator}
         showsVerticalScrollIndicator={isVertical && scrollIndicator}
         testID={testID}

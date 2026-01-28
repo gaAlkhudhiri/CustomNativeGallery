@@ -110,7 +110,7 @@ export function CustomNativeGallery(props: CustomNativeGalleryProps<CustomStyle>
     );
 
     return (
-        <View testID={`${name}`}>
+        <View style={style[0].container} testID={`${name}`}>
             {filtersPlaceholder}
             <GalleryList
                 data={filteredItems}
